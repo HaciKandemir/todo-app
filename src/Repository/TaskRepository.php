@@ -27,52 +27,11 @@ class TaskRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Task $entity, bool $flush = true): void
+    public function add(Task $entity ): Task
     {
         $this->_em->persist($entity);
-        if ($flush) {
-            $this->_em->flush();
-        }
-    }
+        $this->_em->flush();
 
-    /**
-     * @throws ORMException
-     * @throws OptimisticLockException
-     */
-    public function remove(Task $entity, bool $flush = true): void
-    {
-        $this->_em->remove($entity);
-        if ($flush) {
-            $this->_em->flush();
-        }
+        return $entity;
     }
-
-    // /**
-    //  * @return Task[] Returns an array of Task objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Task
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
