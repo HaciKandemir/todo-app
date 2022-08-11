@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Service\TodoService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -17,11 +18,13 @@ class Provider1Command extends Command
 
     private $client;
     private $todos;
+    private $todoService;
 
-    public function __construct(HttpClientInterface $client)
+    public function __construct(HttpClientInterface $client, TodoService $todoService)
     {
         $this->client = $client;
         $this->todos = [];
+        $this->todoService = $todoService;
         parent::__construct();
     }
 
@@ -62,6 +65,8 @@ class Provider1Command extends Command
                 'difficulty' => $todo['zorluk']
             ];
         }
+
+        $this->todoService->addMultipleTask($this->todos);
 
         $io->success(sprintf('Success: %s Found %s task', $statusCode, count($this->todos)));
         return 0;
