@@ -32,6 +32,11 @@ class Task
      */
     private $difficulty;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $point;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +74,18 @@ class Task
     public function setDifficulty(int $difficulty): self
     {
         $this->difficulty = $difficulty;
+
+        return $this;
+    }
+
+    public function getPoint(): ?int
+    {
+        return $this->point;
+    }
+
+    public function setPoint(int $point): self
+    {
+        $this->point = $point;
 
         return $this;
     }
