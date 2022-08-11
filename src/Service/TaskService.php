@@ -6,7 +6,7 @@ use App\Entity\Task;
 use App\Repository\TaskRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
-class TodoService
+class TaskService
 {
     /**
      * @var EntityManagerInterface
@@ -37,5 +37,10 @@ class TodoService
             $this->taskRepository->add($task);
         }
         $this->em->flush();
+    }
+
+    public function getAllTasks(): array
+    {
+        return $this->taskRepository->findAll();
     }
 }

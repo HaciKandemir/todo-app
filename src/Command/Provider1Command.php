@@ -2,7 +2,7 @@
 
 namespace App\Command;
 
-use App\Service\TodoService;
+use App\Service\TaskService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -20,7 +20,7 @@ class Provider1Command extends Command
     private $todos;
     private $todoService;
 
-    public function __construct(HttpClientInterface $client, TodoService $todoService)
+    public function __construct(HttpClientInterface $client, TaskService $todoService)
     {
         $this->client = $client;
         $this->todos = [];
