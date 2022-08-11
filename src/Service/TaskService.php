@@ -33,6 +33,7 @@ class TaskService
             $task->setName($taskData['name']);
             $task->setDuration($taskData['duration']);
             $task->setDifficulty($taskData['difficulty']);
+            $task->setPoint($taskData['difficulty']*$taskData['duration']);
 
             $this->taskRepository->add($task);
         }
