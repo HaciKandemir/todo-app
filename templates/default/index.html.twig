@@ -4,17 +4,38 @@
 
 {% block body %}
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper { margin: 1em auto; max-width: 90%; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+
+    .devs { display: flex; flex-wrap: wrap; align-items: stretch; justify-content: center;}
+    .devs > .dev { flex: 25%; }
+    .title { display: block; text-align: center }
+    .dev {  border: 1px solid burlywood; margin-top: 15px; padding: 15px;}
+    .dev-stats { padding-left: 1rem;}
+    .tasks { padding-left: 1rem; }
+    .task-stats { padding-left: 1.5rem; }
+    .task-title { padding-left: 1rem;}
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/todo-app/src/Controller/DefaultController.php'|file_link(0) }}">src/Controller/DefaultController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/todo-app/templates/default/index.html.twig'|file_link(0) }}">templates/default/index.html.twig</a></code></li>
-    </ul>
+    <span class="title">WEEK 1</span>
+    <div class="devs">
+        {% for key, dev in devs %}
+            <div class="dev">
+                {{ key }}<br>
+                <span class="dev-stats">- difficulty : {{ dev['difficulty'] }}</span><br>
+                <span class="dev-stats">- remaining weekly working hours : {{ dev['weekly_work_duration']|number_format(2) }}</span><br>
+                <div class="tasks">
+                    <span>TASKS:</span><br>
+                    {% for task in dev['task'] %}
+                        <span class="task-title">{{ task.name }}</span><br>
+                        <span class="task-stats">- difficulty : {{ task.difficulty }}</span><br>
+                        <span class="task-stats">- duration : {{ task.duration|number_format(2) }}</span><br>
+                        <span class="task-stats">- time to spend on this task : {{ task.duration * (task.difficulty / dev["difficulty"]) |number_format(2) }}</span><br>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}
